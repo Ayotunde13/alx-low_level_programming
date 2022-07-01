@@ -16,7 +16,5 @@ int main(void)
 	printf("%d\n", n)
 	}
 
-	putchar(10);
-
 	return (0);
 }
