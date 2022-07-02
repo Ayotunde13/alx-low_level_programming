@@ -1,32 +1,33 @@
-#include <stdlib.h>
-#include <time.h>
 #include <stdio.h>
-
 /**
- *main - prints all possible combinations of two two-digit numbers
- *
- *Return: 0
+ *main - writes 00 - 99
+ *Decription: Writes all unique combinations
+ *Return: zero for success
  **/
 int main(void)
 {
-	int ch;
-	int n;
+	int i, j;
 
-	for (ch = 00 48; ch <= 00 57; ch++)
+	for (i = 0; i <= 99; i++)
 	{
-	for (n = 00 48; n <= 00 57; n++)
+	for (j = 0; j <= 99; j++)
 	{
-	putchar(ch);
-	putchar(n);
-	if (ch != 57 || n != 57)
+	if (i < j)
 	{
-	putchar(44);
-	putchar(32);
+	putchar((i / 10) + '0');
+	putchar((i % 10) + '0');
+	putchar(' ');
+	putchar((j / 10) + '0');
+	putchar((j % 10) + '0');
+
+	if (i != 98 || j != 99)
+	{
+	putchar(',');
+	putchar(' ');
 	}
 	}
 	}
-
-	putchar(10);
-
+	}
+	putchar('\n');
 	return (0);
 }
