@@ -9,16 +9,16 @@ char *leet(char *lt)
 {
 	char a[] = { 'a', 'e', 'o', 't', 'l' };
 	char num[] = { 4, 3, 0, 7, 1 };
-	int a;
+	int i;
 	char *r = lt;
 
 	while (*lt)
 	{
-	for (a = 0; a < 5; a++)
+	for (i = 0; i < 5; i++)
 	{
-	if (*lt == a[a] || *lt == a[a] - 32)
+	if (*lt == a[i] || *lt == a[i] - 32)
 	{
-	*lt = num[a] + '0';
+	*lt = num[i] + '0';
 	}
 	}
 	lt++;
