@@ -1,50 +1,42 @@
-#include <stdio.h>
+#include "main.h"
 
 /**
- *print_buffer - Function prototype
- *Description: Prints a buffer in hexadecimal and ASCII format
- *@b: Pointer to the buffer
- *@size: The size of the buffer
- *Return: void
+ *print_buffer - prints a buffer
+ *@b: buffer.
+ *@size: size of buffer.
+ *Return: no return.
  */
 void print_buffer(char *b, int size)
 {
-	int i;
-	int x;
-	int y;
+	int j, k, l;
 
 	if (size <= 0)
-	{
 	printf("\n");
-	return;
-	}
-
-	for (i = 0; i < size; i += 10)
-	{
-	printf("%.8x:", i);
-
-	for (x = i; x < i + 10; x++)
-	{
-	if (x % 2 == 0)
-	printf(" ");
-	if (x < size)
-	printf("%.2x", *(b + x));
 	else
-	printf("  ")
-	}
-
-	printf(" ");
-
-	for (y = i; y < i + 10; y++)
 	{
-	if (y >= size)
+	for (j = 0; j < size; j += 10)
+	{
+	printf("%.8x:", j);
+	for (k = j; k < j + 10; k++)
+	{
+	if (k % 2 == 0)
+	printf(" ");
+	if (k < size)
+	printf("%.2x", *(b + k));
+	else
+	printf("  ");
+	}
+	printf(" ");
+	for (l = j; l < j + 10; l++)
+	{
+	if (l >= size)
 	break;
-
-	if (*(b + y) < 32 || *(b + y) > 126)
+	if (*(b + l) < 32 || *(b + l) > 126)
 	printf("%c", '.');
 	else
-	printf("%c", *(b + y));
+	printf("%c", *(b + l));
 	}
 	printf("\n");
+	}
 	}
 }
