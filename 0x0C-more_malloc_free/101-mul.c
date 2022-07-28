@@ -1,33 +1,66 @@
-#include "main.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 /**
-* main - multiplies two positive numbers
-* @argc: n arguments
-* @argv: args
-* Return: int
+* find_len - finds length of array
+* @arr: array to find length of
+* Return: length of the array
 */
-int main(int argc, char *argv[])
-{
-unsigned long mul;
-int i, j;
 
-if (argc != 3)
+int find_len(int *arr)
 {
-printf("Error\n");
-exit(98);
+int len;
+
+for (len = 0; arr[len]; len++)
+;
+return (len);
 }
-for (i = 1; i < argc; i++)
+
+/**
+* _calloc - allocates memory for an array of size bites
+* @nmemb: what to fill array with
+* @size: type of byte to allocate for memory
+* Return: returns pointer to allocated memory otherwise NULL on fail
+*/
+
+void *_calloc(unsigned int nmemb, unsigned int size)
 {
-for (j = 0; argv[i][j] != '\0'; j++)
+char *arr;
+unsigned int i;
+
+if (nmemb == 0 || size == 0)
+return (NULL);
+arr = malloc(nmemb * size);
+if (arr == NULL)
+return (NULL);
+for (i = 0; i < nmemb * size; i++)
+arr[i] = 0;
+return ((void *)arr);
+}
+
+/**
+* main - multiplies two postivie numbers
+* @num1: first number to multiply by
+* @num2: second number to multiply by
+* Return: result followed by new line
+*/
+
+int main(int *num1, int *num2)
 {
-if (argv[i][j] > 57 || argv[i][j] < 48)
+int i, j, carry, len1, len2, *total;
+
+len1 = find_len(num1);
+len2 = find_len(num2);
+
+if (len1 > len2)
+total = _calloc(len1 * 2, sizeof(int));
+else
+total = _calloc(len2 * 2, sizeof(int));
+if (!total)
 {
-printf("Error\n");
-exit(98);
+free(arr);
+return (NULL);
 }
-}
-}
-mul = atol(argv[1]) *  atol(argv[2]);
-printf("%lu\n", mul);
-return (0);
+i = 0;
+j = 0;
 }
