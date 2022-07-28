@@ -1,67 +1,99 @@
-#include "main.h"
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include "main.h"
 
 /**
-* find_len - finds length of array
-* @arr: array to find length of
-* Return: length of the array
+* is_digit - checks if a string contains a non-digit char
+* @s: string to be evaluated
+*
+* Return: 0 if a non-digit is found, 1 otherwise
 */
-
-int find_len(int *arr)
+int is_digit(char *s)
 {
-int len;
+int i = 0;
 
-for (len = 0; arr[len]; len++)
-;
-return (len);
+while (s[i])
+{
+if (s[i] < '0' || s[i] > '9')
+return (0);
+i++;
+}
+return (1);
 }
 
 /**
-* _calloc - allocates memory for an array of size bites
-* @nmemb: what to fill array with
-* @size: type of byte to allocate for memory
-* Return: returns pointer to allocated memory otherwise NULL on fail
+* _strlen - returns the length of a string
+* @s: string to evaluate
+*
+* Return: the length of the string
 */
-
-void *_calloc(unsigned int nmemb, unsigned int size)
+int _strlen(char *s)
 {
-char *arr;
-unsigned int i;
+int i = 0;
 
-if (nmemb == 0 || size == 0)
-return (NULL);
-arr = malloc(nmemb * size);
-if (arr == NULL)
-return (NULL);
-for (i = 0; i < nmemb * size; i++)
-arr[i] = 0;
-return ((void *)arr);
+while (s[i] != '\0')
+{
+i++;
+}
+return (i);
 }
 
 /**
-* main - multiplies two postivie numbers
-* @num1: first number to multiply by
-* @num2: second number to multiply by
-* Return: result followed by new line
+* errors - handles errors for main
 */
-
-int main(int *num1, int *num2)
+void errors(void)
 {
-int i, j, carry, len1, len2, *total;
-
-len1 = find_len(num1);
-len2 = find_len(num2);
-
-if (len1 > len2)
-total = _calloc(len1 * 2, sizeof(int));
-else
-total = _calloc(len2 * 2, sizeof(int));
-if (!total)
-{
-free(arr);
-return (NULL);
+printf("Error\n");
+exit(98);
 }
-i = 0;
-j = 0;
+
+/**
+* main - multiplies two positive numbers
+* @argc: number of arguments
+* @argv: array of arguments
+*
+* Return: always 0 (Success)
+*/
+int main(int argc, char *argv[])
+{
+char *s1, *s2;
+int len1, len2, len, i, carry, digit1, digit2, *result, a = 0;
+
+s1 = argv[1], s2 = argv[2];
+if (argc != 3 || !is_digit(s1) || !is_digit(s2))
+errors();
+len1 = _strlen(s1);
+len2 = _strlen(s2);
+len = len1 + len2 + 1;
+result = malloc(sizeof(int) * len);
+if (!result)
+return (1);
+for (i = 0; i <= len1 + len2; i++)
+result[i] = 0;
+for (len1 = len1 - 1; len1 >= 0; len1--)
+{
+digit1 = s1[len1] - '0';
+carry = 0;
+for (len2 = _strlen(s2) - 1; len2 >= 0; len2--)
+{
+digit2 = s2[len2] - '0';
+carry += result[len1 + len2 + 1] + (digit1 * digit2);
+result[len1 + len2 + 1] = carry % 10;
+carry /= 10;
+}
+if (carry > 0)
+result[len1 + len2 + 1] += carry;
+}
+for (i = 0; i < len - 1; i++)
+{
+if (result[i])
+a = 1;
+if (a)
+_putchar(result[i] + '0');
+}
+if (!a)
+_putchar('0');
+_putchar('\n');
+free(result);
+return (0);
 }
